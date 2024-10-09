@@ -13,10 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Исходные файлы\cmdline_parser">
+      <UniqueIdentifier>{4fd82fdb-d218-483d-b597-aff688565584}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="tape.cpp">
+    <ClCompile Include="..\..\src\main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\cmdline_parser\cmdline_parser.cpp">
+      <Filter>Исходные файлы\cmdline_parser</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\cmdline_parser\cmdline_parser.h">
+      <Filter>Исходные файлы\cmdline_parser</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
