@@ -5,9 +5,9 @@
 #include <iostream>
 #include <regex>
 
-#define REGEX_SHORT_OPTION              "(-)([A-Za-z0-9]+)"
-#define REGEX_LONG_OPTION               "-{1,2}([A-Za-z0-9]+)"
-#define REGEX_LONG_OPTION_WITH_SUFFIX   "-{1,2}([A-Za-z0-9]+)=([^=]+)"
+#define REGEX_SHORT_OPTION              "-([A-Za-z0-9]+)"
+#define REGEX_LONG_OPTION               "--([A-Za-z0-9]+)"
+#define REGEX_LONG_OPTION_WITH_SUFFIX   "--([A-Za-z0-9]+)=([^=]+)"
 
 using options_map = std::map<std::string, std::string>;
 
@@ -29,7 +29,9 @@ private:
 		long_option_with_suffix,
 	};
 
+	std::regex get_option_regex(const std::string & option) const;
 	option_type get_option_type(const std::string & option) const;
+	std::string extract_option_name(const std::string & option) const;
 
 public:
 	cmdline_parser() = default;
@@ -39,21 +41,18 @@ public:
 	cmdline_parser & operator=(cmdline_parser &&) = default;
 	~cmdline_parser() = default;
 
-
-
 	enum class parse_result
 	{
 		parse_success,
+		no_options,
 		option_not_found,
 		valid_option,
 	};
 
 	void set_usage_message(const std::string & usage_message);
 	void print_usage_message() const;
+	void print_options() const;
 	parse_result parse(int argc, char ** argv);
 	parse_result get_option(const std::string & key, std::string & value);
+	bool contains_option(const std::string & key);
 };
-
-const std::regex cmdline_parser::regex_short_option = std::regex(REGEX_SHORT_OPTION);
-const std::regex cmdline_parser::regex_long_option = std::regex(REGEX_LONG_OPTION);
-const std::regex cmdline_parser::regex_long_option_with_suffix = std::regex(REGEX_LONG_OPTION_WITH_SUFFIX);
