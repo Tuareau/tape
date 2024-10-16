@@ -5,26 +5,145 @@
       <UniqueIdentifier>
       </UniqueIdentifier>
     </Filter>
-    <Filter Include="tape\modules">
+    <Filter Include="modules">
       <UniqueIdentifier>
       </UniqueIdentifier>
     </Filter>
-    <Filter Include="tape\modules\cmdline_parser">
+    <Filter Include="modules\cmdline_parser">
+      <UniqueIdentifier>
+      </UniqueIdentifier>
+    </Filter>
+    <Filter Include="modules\yaml-cpp">
       <UniqueIdentifier>
       </UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\main.cpp">
+    <ClCompile Include="$(SolutionDir)\..\src\main.cpp" />
+    <ClCompile Include="$(CmdlineParserDir)\cmdline_parser.cpp">
+      <Filter>modules\cmdline_parser</Filter>
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)\..\src\tape\TapeFstreamEmulator.cpp">
       <Filter>tape</Filter>
     </ClCompile>
-    <ClCompile Include="$(CmdlineParserDir)\cmdline_parser.cpp">
-      <Filter>tape\modules\cmdline_parser</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\yaml.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\type.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\traits.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\stlemitter.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\ptr.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\parser.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\parse.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\ostream_wrapper.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\null.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\noexcept.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\detail\node_ref.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\detail\node_iterator.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\detail\node_data.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\node.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\detail\node.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\detail\memory.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\mark.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\detail\iterator_fwd.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\iterator.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\detail\iterator.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\impl.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\detail\impl.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\exceptions.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\eventhandler.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\emitterstyle.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\emittermanip.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\emitterdef.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\emitter.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\emitfromevents.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\emit.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\dll.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\depthguard.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\convert.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\binary.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\anchor.h">
+      <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
     <ClInclude Include="$(CmdlineParserDir)\cmdline_parser.h">
-      <Filter>tape\modules\cmdline_parser</Filter>
+      <Filter>modules\cmdline_parser</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)\..\src\tape\ITape.h">
+      <Filter>tape</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)\..\src\tape\ITapeEmulator.h">
+      <Filter>tape</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)\..\src\tape\TapeFstreamEmulator.h">
+      <Filter>tape</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

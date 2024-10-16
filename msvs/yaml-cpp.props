@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="UserMacros">
+    <YamlCppDir>$(SolutionDir)..\yaml-cpp</YamlCppDir>
+    <YamlCppIncludeDir>$(SolutionDir)..\yaml-cpp\include</YamlCppIncludeDir>
+    <YamlCppSourceDir>$(SolutionDir)..\yaml-cpp\src</YamlCppSourceDir>
+    <YamlCppStaticLibDir>$(SolutionDir)..\src\libs</YamlCppStaticLibDir>
+    <YamlCppStaticLib>yaml-cppd.lib</YamlCppStaticLib>
+  </PropertyGroup>
+  <ItemGroup>
+    <BuildMacro Include="YamlCppDir">
+      <Value>$(YamlCppDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="YamlCppIncludeDir">
+      <Value>$(YamlCppIncludeDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="YamlCppSourceDir">
+      <Value>$(YamlCppSourceDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="YamlCppStaticLibDir">
+      <Value>$(YamlCppStaticLibDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="YamlCppStaticLib">
+      <Value>$(YamlCppStaticLib)</Value>
+    </BuildMacro>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\anchor.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\binary.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\depthguard.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\dll.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\emitfromevents.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\emitter.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\emitterdef.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\emittermanip.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\emitterstyle.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\eventhandler.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\exceptions.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\mark.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\convert.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\detail\impl.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\detail\iterator.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\detail\iterator_fwd.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\detail\memory.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\detail\node.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\detail\node_data.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\detail\node_iterator.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\detail\node_ref.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\emit.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\impl.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\iterator.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\node.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\parse.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\ptr.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\node\type.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\noexcept.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\null.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\ostream_wrapper.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\parser.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\stlemitter.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\traits.h" />
+    <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\yaml.h" />
+  </ItemGroup>
+</Project>

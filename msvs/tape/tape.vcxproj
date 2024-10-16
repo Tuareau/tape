@@ -3,8 +3,19 @@
   <ImportGroup Label="PropertySheets">
     <Import Project="$(SolutionDir)\global_settings.props" />
   </ImportGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\User\home\pavel\study\tape\src\modules\cmdline_parser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\main.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\src\main.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\src\tape\TapeFstreamEmulator.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)\..\src\tape\ITape.h" />
+    <ClInclude Include="$(SolutionDir)\..\src\tape\ITapeEmulator.h" />
+    <ClInclude Include="$(SolutionDir)\..\src\tape\TapeFstreamEmulator.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -14,9 +25,9 @@
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <PropertyGroup Label="OutputFolder">
-    <BuildDirSuffix>$(Configuration).$(Platform)\</BuildDirSuffix>
-    <IntDir>$(SolutionDir)..\bin\tape\intermediate\$(BuildDirSuffix)\</IntDir>
-    <OutDir>$(SolutionDir)..\bin\tape\$(BuildDirSuffix)\</OutDir>
+    <BuildDirSuffix>$(Configuration)\$(Platform)</BuildDirSuffix>
+    <IntDir>$(SolutionDir)..\bin\tape\$(BuildDirSuffix)\obj</IntDir>
+    <OutDir>$(SolutionDir)..\bin\tape\$(BuildDirSuffix)</OutDir>
     <OutputPath>$(OutDir)</OutputPath>
   </PropertyGroup>
 </Project>
