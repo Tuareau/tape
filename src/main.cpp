@@ -2,6 +2,7 @@
 #include <map>
 
 #include "cmdline_parser.h"
+#include "yaml-cpp/yaml.h"
 
 int main(int argc, char ** argv)
 {
@@ -28,6 +29,8 @@ int main(int argc, char ** argv)
 	}
 
 	cli.print_options();
+
+	YAML::Parser parser;
 
 	return 0;
 }
