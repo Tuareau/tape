@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ImportGroup Label="PropertySheets">
-    <Import Project="$(SolutionDir)\global_settings.props" />
-  </ImportGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\User\home\pavel\study\tape\src\modules\cmdline_parser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-  </ItemDefinitionGroup>
+  <Import Project="$(SolutionDir)\global_settings.props" />
   <ItemGroup>
     <ClCompile Include="$(SolutionDir)\..\src\main.cpp" />
     <ClCompile Include="$(SolutionDir)\..\src\tape\TapeFstreamEmulator.cpp" />
@@ -18,16 +11,14 @@
     <ClInclude Include="$(SolutionDir)\..\src\tape\TapeFstreamEmulator.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <VCProjectVersion>16.0</VCProjectVersion>
+    <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{12f85f5c-eea8-4ef8-b77d-e6251a0d790d}</ProjectGuid>
+    <ProjectGuid>{9476b6e0-b325-43d3-b57f-40e4f185b304}</ProjectGuid>
     <RootNamespace>tape</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-  </PropertyGroup>
-  <PropertyGroup Label="OutputFolder">
-    <BuildDirSuffix>$(Configuration)\$(Platform)</BuildDirSuffix>
-    <IntDir>$(SolutionDir)..\bin\tape\$(BuildDirSuffix)\obj</IntDir>
-    <OutDir>$(SolutionDir)..\bin\tape\$(BuildDirSuffix)</OutDir>
+    <!-- <OutDir>$(SolutionDir)..\bin\tape\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\bin\tape\$(Platform)\$(Configuration)\obj\</IntDir>
     <OutputPath>$(OutDir)</OutputPath>
+    <LocalDebuggerCommand>$(OutDir)$(TargetName).exe</LocalDebuggerCommand> -->
   </PropertyGroup>
 </Project>
