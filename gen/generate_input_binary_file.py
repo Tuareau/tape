@@ -33,7 +33,7 @@ def main():
     samples = rng.integers(low=-2**31, high=2**31-1, size=N)
     # print(samples)
 
-    with open('../msvs/x64/Debug/input.bin', 'wb') as file:
+    with open('input.bin', 'wb') as file:
         for sample in samples:
             binary_sample = int(sample)
             binary_data = binary_sample.to_bytes(4, byteorder='little', signed=True)

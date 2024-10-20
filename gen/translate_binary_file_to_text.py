@@ -1,5 +1,6 @@
 import numpy as np
 import sys
+import os
 
 def argument_valid(argument):
     error_message = "Invalid argument: " + str(argument) + "; no such file\n"
@@ -30,7 +31,8 @@ def main():
         binary_data = file.read()
         unpacked_numbers = [int.from_bytes(binary_data[i:i+4], byteorder='little', signed=True) for i in range(0, len(binary_data), 4)]
         
-    with open('input.dat', 'wt') as file:
+    fname, extension = os.path.splitext(filename)
+    with open(fname + '.dat', 'wt') as file:
         for sample in unpacked_numbers:
             file.write(str(sample) + '\n')
 
