@@ -3,12 +3,12 @@
   <Import Project="$(SolutionDir)\global_settings.props" />
   <ItemGroup>
     <ClCompile Include="$(SolutionDir)\..\src\main.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\src\tape\TapeFstreamEmulator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SolutionDir)\..\src\tape\ITape.h" />
     <ClInclude Include="$(SolutionDir)\..\src\tape\ITapeEmulator.h" />
-    <ClInclude Include="$(SolutionDir)\..\src\tape\TapeFstreamEmulator.h" />
+    <ClInclude Include="..\..\src\tape\TapeEmulatorFabric.h" />
+    <ClInclude Include="..\..\src\tape\TapeFstreamEmulator.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

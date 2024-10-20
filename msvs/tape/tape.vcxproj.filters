@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="$(SolutionDir)\..\src\tape\TapeFstreamEmulator.cpp">
-      <Filter>tape</Filter>
-    </ClCompile>
     <ClCompile Include="$(CmdlineParserDir)\cmdline_parser.cpp">
       <Filter>modules\cmdline_parser</Filter>
     </ClCompile>
@@ -16,7 +13,7 @@
     <ClInclude Include="$(SolutionDir)\..\src\tape\ITapeEmulator.h">
       <Filter>tape</Filter>
     </ClInclude>
-    <ClInclude Include="$(SolutionDir)\..\src\tape\TapeFstreamEmulator.h">
+    <ClInclude Include="..\..\src\tape\TapeFstreamEmulator.h">
       <Filter>tape</Filter>
     </ClInclude>
     <ClInclude Include="$(CmdlineParserDir)\cmdline_parser.h">
@@ -126,6 +123,9 @@
     </ClInclude>
     <ClInclude Include="$(YamlCppIncludeDir)\yaml-cpp\yaml.h">
       <Filter>modules\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\tape\TapeEmulatorFabric.h">
+      <Filter>tape</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
