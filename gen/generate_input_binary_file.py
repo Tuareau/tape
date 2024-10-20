@@ -14,7 +14,7 @@ def argument_valid(argument):
 
 def print_program_usage():
     message = """
-    Usage: python generate_input_file.py N\n
+    Usage: python generate_input_binary_file.py N\n
     where N must be greater than 0
     """
     print(message)
@@ -31,11 +31,12 @@ def main():
 
     rng = np.random.default_rng()
     samples = rng.integers(low=-2**31, high=2**31-1, size=N)
-    print(samples)
+    # print(samples)
 
-    output_file = open('input.dat', 'w')
-    for x in samples:
-        output_file.write(str(x) + "\n")
-    output_file.close() 
+    with open('../msvs/x64/Debug/input.bin', 'wb') as file:
+        for sample in samples:
+            binary_sample = int(sample)
+            binary_data = binary_sample.to_bytes(4, byteorder='little', signed=True)
+            file.write(binary_data)
 
 main()
