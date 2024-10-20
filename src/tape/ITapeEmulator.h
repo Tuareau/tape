@@ -22,6 +22,10 @@ public:
 		EndOfFile,
 	};
 
+	virtual TapeState open_tape() = 0;
+	virtual TapeState reset_tape() = 0;
+	virtual TapeState close_tape() = 0;
+
 	virtual TapeState read_element(T &) = 0;
 	virtual TapeState write_element(const T &) = 0;
 	virtual TapeState shift_forward() = 0;

@@ -1,7 +1,7 @@
 #include "TapeFstreamEmulator.h"
 
 template<typename T>
-TapeFstreamEmulator<T>::TapeFstreamEmulator(std::string filename)
+TapeFstreamEmulator<T>::TapeFstreamEmulator(const std::string & filename)
 {
 	using namespace std::chrono_literals;
 	auto default_settings = std::make_shared<TapeSettings>();
@@ -15,7 +15,7 @@ TapeFstreamEmulator<T>::TapeFstreamEmulator(std::string filename)
 }
 
 template<typename T>
-TapeFstreamEmulator<T>::TapeFstreamEmulator(TapeSettingsPointer settings)
+TapeFstreamEmulator<T>::TapeFstreamEmulator(const TapeSettingsPointer & settings)
 {
 	this->settings = settings;
 	this->filename = std::string{ "default.bin" };
@@ -23,7 +23,7 @@ TapeFstreamEmulator<T>::TapeFstreamEmulator(TapeSettingsPointer settings)
 }
 
 template<typename T>
-TapeFstreamEmulator<T>::TapeFstreamEmulator(std::string filename, TapeSettingsPointer settings)
+TapeFstreamEmulator<T>::TapeFstreamEmulator(const std::string & filename, const TapeSettingsPointer & settings)
 {
 	this->filename = filename;
 	this->settings = settings;
@@ -49,7 +49,7 @@ template<typename T>
 TapeFstreamEmulator<T>::~TapeFstreamEmulator()
 {
 	this->fstream.close();
-	this->state = ITapeEmulator<T>::TapeState::Uninitialized;
+	this->state = ITapeEmulator<T>::TapeState::Unitialized;
 }
 
 template<typename T>
@@ -59,7 +59,7 @@ bool TapeFstreamEmulator<T>::good()
 }
 
 template<typename T>
-ITapeEmulator<T>::TapeState TapeFstreamEmulator<T>::open_stream()
+ITapeEmulator<T>::TapeState TapeFstreamEmulator<T>::open_tape()
 {
 	constexpr auto open_mode = std::ios_base::binary | std::ios_base::in | std::ios_base::out;
 	this->fstream.open(this->filename, open_mode);
@@ -70,18 +70,18 @@ ITapeEmulator<T>::TapeState TapeFstreamEmulator<T>::open_stream()
 }
 
 template<typename T>
-ITapeEmulator<T>::TapeState TapeFstreamEmulator<T>::reset_stream()
+ITapeEmulator<T>::TapeState TapeFstreamEmulator<T>::reset_tape()
 {
-	this->close_stream();
-	const auto state = this->open_stream();
+	this->close_tape();
+	const auto state = this->open_tape();
 	return state;
 }
 
 template<typename T>
-ITapeEmulator<T>::TapeState TapeFstreamEmulator<T>::close_stream()
+ITapeEmulator<T>::TapeState TapeFstreamEmulator<T>::close_tape()
 {
 	this->fstream.close();
-	this->state = ITapeEmulator<T>::TapeState::Uninitialized;
+	this->state = ITapeEmulator<T>::TapeState::Unitialized;
 	return this->state;
 }
 
@@ -95,7 +95,7 @@ ITapeEmulator<T>::TapeState TapeFstreamEmulator<T>::read_element(T & element)
 	std::this_thread::sleep_for(this->settings->tape_read_delay);
 
 	T value = 0;
-	this->fstream.seekg(this->position, std::ios_base::beg);
+	this->fstream.seekg(this->read_position, std::ios_base::beg);
 	if (this->fstream.read(reinterpret_cast<char *>(&value), sizeof(T))) {
 		this->update_state();
 	}
@@ -117,7 +117,7 @@ ITapeEmulator<T>::TapeState TapeFstreamEmulator<T>::write_element(const T & elem
 	std::this_thread::sleep_for(this->settings->tape_write_delay);
 
 	T value = element;
-	this->fstream.seekp(this->position, std::ios_base::beg);
+	this->fstream.seekp(this->write_position, std::ios_base::beg);
 	this->fstream.write(reinterpret_cast<char *>(&value), sizeof(T));
 	this->update_state();
 	return this->state;
@@ -132,7 +132,8 @@ ITapeEmulator<T>::TapeState TapeFstreamEmulator<T>::shift_forward()
 
 	std::this_thread::sleep_for(this->settings->tape_shift_delay);
 	
-	this->position += sizeof(T);
+	this->read_position += sizeof(T);
+	this->write_position += sizeof(T);
 	return this->state;
 }
 
@@ -145,6 +146,7 @@ ITapeEmulator<T>::TapeState TapeFstreamEmulator<T>::shift_backward()
 
 	std::this_thread::sleep_for(this->settings->tape_shift_delay);
 
-	this->position -= sizeof(T);
+	this->read_position -= sizeof(T);
+	this->write_position -= sizeof(T);
 	return this->state;
 }
