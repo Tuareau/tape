@@ -2,12 +2,28 @@
 
 #include "ITape.h"
 
-class ITapeEmulator : public ITape
+#include <memory>
+
+template <typename T>
+class ITapeEmulator : public ITape<T>
 {
 protected:
 	virtual ~ITapeEmulator() = default;
 
 public:
-	virtual void destroy() = 0;
 	ITapeEmulator & operator=(const ITapeEmulator &) = delete;
+
+	virtual bool good() = 0;
+
+	enum class TapeState {
+		Unitialized,
+		Good,
+		ReadError,
+		EndOfFile,
+	};
+
+	virtual TapeState read_element(T &) = 0;
+	virtual TapeState write_element(const T &) = 0;
+	virtual TapeState shift_forward() = 0;
+	virtual TapeState shift_backward() = 0;
 };
