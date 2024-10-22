@@ -1,0 +1,5 @@
+- TapeSettings:
+    tape_write_delay: 30 # ms;
+    tape_read_delay: 10 # ms;
+    tape_shift_delay: 70 # ms;
+    
