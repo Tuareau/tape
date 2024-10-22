@@ -1,5 +1,14 @@
-- TapeSettings:
-    tape_write_delay: 30 # ms;
-    tape_read_delay: 10 # ms;
-    tape_shift_delay: 70 # ms;
+---
+
+input_tape_settings:
+  setting_id:       !!str "0"
+  tape_write_delay: !!int 30 # ms;
+  tape_read_delay:  !!int 10 # ms;
+  tape_shift_delay: !!int 70 # ms;
+
+output_tape_settings:
+  setting_id:       !!str "1"
+  tape_write_delay: !!int 0 # ms;
+  tape_read_delay:  !!int 0 # ms;
+  tape_shift_delay: !!int 0 # ms;
     
