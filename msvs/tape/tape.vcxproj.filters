@@ -5,6 +5,9 @@
       <Filter>modules\cmdline_parser</Filter>
     </ClCompile>
     <ClCompile Include="$(SolutionDir)\..\src\main.cpp" />
+    <ClCompile Include="$(TapeSettingsLoaderDir)\TapeSettingsLoader.cpp">
+      <Filter>modules\tape_settings_loader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SolutionDir)\..\src\tape\ITape.h">
@@ -127,6 +130,9 @@
     <ClInclude Include="..\..\src\tape\TapeEmulatorFabric.h">
       <Filter>tape</Filter>
     </ClInclude>
+    <ClInclude Include="$(TapeSettingsLoaderDir)\TapeSettingsLoader.h">
+      <Filter>modules\tape_settings_loader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="tape">
@@ -140,6 +146,9 @@
     </Filter>
     <Filter Include="modules\yaml-cpp">
       <UniqueIdentifier>{87cf21c2-81fd-40ed-a831-cf67476b9666}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="modules\tape_settings_loader">
+      <UniqueIdentifier>{467bc95e-8f75-4e7d-91ac-318cb0cb4bc9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

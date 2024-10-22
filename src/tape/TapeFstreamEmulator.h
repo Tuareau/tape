@@ -7,10 +7,20 @@
 #include <memory>
 #include <chrono>
 
-struct TapeSettings {
+struct TapeSettings
+{
+	std::string setting_id;
 	std::chrono::milliseconds tape_write_delay;
 	std::chrono::milliseconds tape_read_delay;
 	std::chrono::milliseconds tape_shift_delay;
+	friend std::ostream & operator<<(std::ostream & stream, const TapeSettings & settings)
+	{
+		std::cout << "\nTape Setting " << settings.setting_id;
+		std::cout << "\n  tape_write_delay = " << settings.tape_write_delay;
+		std::cout << "\n  tape_read_delay = " << settings.tape_read_delay;
+		std::cout << "\n  tape_shift_delay = " << settings.tape_shift_delay << std::endl;
+		return stream;
+	}
 };
 
 using TapeSettingsPointer = std::shared_ptr<TapeSettings>;
@@ -59,6 +69,7 @@ TapeFstreamEmulator<T>::TapeFstreamEmulator(const std::string & filename)
 {
 	using namespace std::chrono_literals;
 	auto default_settings = std::make_shared<TapeSettings>();
+	default_settings->setting_id = std::string{};
 	default_settings->tape_read_delay = 0ms;
 	default_settings->tape_write_delay = 0ms;
 	default_settings->tape_shift_delay = 0ms;
