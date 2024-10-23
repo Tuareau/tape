@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(SolutionDir)\global_settings.props" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Link>
+      <AdditionalDependencies>$(YamlCppStaticLib);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="$(SolutionDir)\..\src\main.cpp" />
   </ItemGroup>
@@ -20,5 +26,8 @@
     <IntDir>$(SolutionDir)..\bin\tape\$(Platform)\$(Configuration)\obj\</IntDir>
     <OutputPath>$(OutDir)</OutputPath>
     <LocalDebuggerCommand>$(OutDir)$(TargetName).exe</LocalDebuggerCommand> -->
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ConfigurationType>Application</ConfigurationType>
   </PropertyGroup>
 </Project>

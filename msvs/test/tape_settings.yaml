@@ -1,0 +1,25 @@
+tape_0:
+  setting_id: 0
+  tape_write_delay: 0
+  tape_read_delay: 0
+  tape_shift_delay: 0
+tape_1:
+  setting_id: 1
+  tape_write_delay: 15
+  tape_read_delay: 5
+  tape_shift_delay: 20
+tape_2:
+  setting_id: 2
+  tape_write_delay: 30
+  tape_read_delay: 10
+  tape_shift_delay: 40
+tape_3:
+  setting_id: 3
+  tape_write_delay: 45
+  tape_read_delay: 15
+  tape_shift_delay: 60
+tape_4:
+  setting_id: 4
+  tape_write_delay: 60
+  tape_read_delay: 20
+  tape_shift_delay: 80

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="$(TestSourcesDir)\cmdline_parser_test.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="$(TestSourcesDir)\tape_emulator_test.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="$(TestSourcesDir)\yaml_parser_test.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="tests">
+      <UniqueIdentifier>{54a2be43-6573-43b5-907c-4cd681097b87}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
