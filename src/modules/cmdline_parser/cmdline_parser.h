@@ -52,7 +52,7 @@ public:
 	void set_usage_message(const std::string & usage_message);
 	void print_usage_message() const;
 	void print_options() const;
-	parse_result parse(int argc, char ** argv);
+	parse_result parse(int argc, const char ** argv);
 	parse_result get_option(const std::string & key, std::string & value);
 	bool contains_option(const std::string & key);
 };

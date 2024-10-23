@@ -61,7 +61,7 @@ void cmdline_parser::print_options() const
 	}
 }
 
-cmdline_parser::parse_result cmdline_parser::parse(int argc, char ** argv)
+cmdline_parser::parse_result cmdline_parser::parse(int argc, const char ** argv)
 {
 	auto parse_result = parse_result::no_options;
 	for (int i = 1; i < argc; i++) {
