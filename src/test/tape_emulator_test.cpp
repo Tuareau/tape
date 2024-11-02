@@ -8,7 +8,7 @@
 #define CONFIG_FILENAME "tape_settings.yaml"
 
 #define TAPE_LENGTH 20
-#define TAPE_SETTING_ID "tape_3"
+#define TAPE_SETTING_ID "tape_0"
 
 TEST(TapeFunctionalTests, WriteTapeAndReadWithAnother)
 {

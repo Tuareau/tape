@@ -133,6 +133,9 @@
     <ClInclude Include="$(TapeSettingsLoaderDir)\TapeSettingsLoader.h">
       <Filter>modules\tape_settings_loader</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\tape\TapeIterativeDataCollector.h">
+      <Filter>tape</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="tape">

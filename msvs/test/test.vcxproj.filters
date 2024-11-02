@@ -10,6 +10,9 @@
     <ClCompile Include="$(TestSourcesDir)\yaml_parser_test.cpp">
       <Filter>tests</Filter>
     </ClCompile>
+    <ClCompile Include="tape_collector_test.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="tests">

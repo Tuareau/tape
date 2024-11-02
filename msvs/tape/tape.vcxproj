@@ -15,6 +15,7 @@
     <ClInclude Include="$(SolutionDir)\..\src\tape\ITapeEmulator.h" />
     <ClInclude Include="..\..\src\tape\TapeEmulatorFabric.h" />
     <ClInclude Include="..\..\src\tape\TapeFstreamEmulator.h" />
+    <ClInclude Include="..\..\src\tape\TapeIterativeDataCollector.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
