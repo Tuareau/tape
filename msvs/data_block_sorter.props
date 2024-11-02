@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="UserMacros">
+    <DataBlockSorterDir>$(SolutionDir)..\src\modules\data_block_sorter</DataBlockSorterDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <BuildMacro Include="DataBlockSorterDir">
+      <Value>$(DataBlockSorterDir)</Value>
+    </BuildMacro>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(DataBlockSorterDir)\DataBlockSorter.h" />
+  </ItemGroup>
+</Project>

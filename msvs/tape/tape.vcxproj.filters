@@ -11,6 +11,9 @@
     <ClCompile Include="$(ThreadPoolDir)\threadsafe_queue.h">
       <Filter>modules\thread_pool</Filter>
     </ClCompile>
+    <ClCompile Include="$(ThreadPoolDir)\DataBlockSorter.h">
+      <Filter>modules\data_block_sorter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SolutionDir)\..\src\tape\ITape.h">
@@ -161,6 +164,9 @@
     </Filter>
     <Filter Include="modules\thread_pool">
       <UniqueIdentifier>{3da1a84c-1c26-45ec-a953-0a1d3567f0c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="modules\data_block_sorter">
+      <UniqueIdentifier>{b5d33afc-c894-4a5b-8307-be8b5310290e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

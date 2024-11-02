@@ -25,6 +25,7 @@
   <Import Project="$(SolutionDir)\yaml-cpp.props" />
   <Import Project="$(SolutionDir)\tape_settings_loader.props" />
   <Import Project="$(SolutionDir)\thread_pool.props" />
+  <Import Project="$(SolutionDir)\data_block_sorter.props" />
   <PropertyGroup Label="UserMacros">
     <ITapeIncludeDir>$(SolutionDir)..\src\tape</ITapeIncludeDir>
   </PropertyGroup>
@@ -36,7 +37,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;YAML_CPP_STATIC_DEFINE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(TapeSettingsLoaderDir);$(ITapeIncludeDir);$(YamlCppIncludeDir);$(CmdlineParserDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(DataBlockSorter);$(ThreadPoolDir);$(TapeSettingsLoaderDir);$(ITapeIncludeDir);$(YamlCppIncludeDir);$(CmdlineParserDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
