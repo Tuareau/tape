@@ -24,6 +24,7 @@
   <Import Project="$(SolutionDir)\cmdline_parser.props" />
   <Import Project="$(SolutionDir)\yaml-cpp.props" />
   <Import Project="$(SolutionDir)\tape_settings_loader.props" />
+  <Import Project="$(SolutionDir)\thread_pool.props" />
   <PropertyGroup Label="UserMacros">
     <ITapeIncludeDir>$(SolutionDir)..\src\tape</ITapeIncludeDir>
   </PropertyGroup>

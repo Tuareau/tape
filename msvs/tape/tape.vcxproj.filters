@@ -8,6 +8,9 @@
     <ClCompile Include="$(TapeSettingsLoaderDir)\TapeSettingsLoader.cpp">
       <Filter>modules\tape_settings_loader</Filter>
     </ClCompile>
+    <ClCompile Include="$(ThreadPoolDir)\threadsafe_queue.h">
+      <Filter>modules\thread_pool</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SolutionDir)\..\src\tape\ITape.h">
@@ -136,6 +139,9 @@
     <ClInclude Include="..\..\src\tape\TapeIterativeDataCollector.h">
       <Filter>tape</Filter>
     </ClInclude>
+    <ClInclude Include="$(ThreadPoolDir)\thread_pool.h">
+      <Filter>modules\thread_pool</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="tape">
@@ -152,6 +158,9 @@
     </Filter>
     <Filter Include="modules\tape_settings_loader">
       <UniqueIdentifier>{467bc95e-8f75-4e7d-91ac-318cb0cb4bc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="modules\thread_pool">
+      <UniqueIdentifier>{3da1a84c-1c26-45ec-a953-0a1d3567f0c1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
