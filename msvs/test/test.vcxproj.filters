@@ -13,6 +13,9 @@
     <ClCompile Include="$(TestSourcesDir)\tape_collector_test.cpp">
       <Filter>tests</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\test\tape_sorting_engine_test.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="tests">

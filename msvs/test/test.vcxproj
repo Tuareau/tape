@@ -34,6 +34,7 @@
     <ClCompile Include="$(TestSourcesDir)\tape_emulator_test.cpp" />
     <ClCompile Include="$(TestSourcesDir)\yaml_parser_test.cpp" />
     <ClCompile Include="$(TestSourcesDir)\tape_collector_test.cpp" />
+    <ClCompile Include="..\..\src\test\tape_sorting_engine_test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\tape\tape.vcxproj">

@@ -16,6 +16,8 @@
     <ClInclude Include="..\..\src\tape\TapeEmulatorFabric.h" />
     <ClInclude Include="..\..\src\tape\TapeFstreamEmulator.h" />
     <ClInclude Include="..\..\src\tape\TapeIterativeDataCollector.h" />
+    <ClInclude Include="..\..\src\tape\TapeMergeEngine.h" />
+    <ClInclude Include="..\..\src\tape\TapeSortingEngine.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

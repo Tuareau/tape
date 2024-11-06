@@ -11,7 +11,7 @@
     <ClCompile Include="$(ThreadPoolDir)\threadsafe_queue.h">
       <Filter>modules\thread_pool</Filter>
     </ClCompile>
-    <ClCompile Include="$(ThreadPoolDir)\DataBlockSorter.h">
+    <ClCompile Include="$(DataBlockSorterDir)\DataBlockSorter.h">
       <Filter>modules\data_block_sorter</Filter>
     </ClCompile>
   </ItemGroup>
@@ -144,6 +144,12 @@
     </ClInclude>
     <ClInclude Include="$(ThreadPoolDir)\thread_pool.h">
       <Filter>modules\thread_pool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\tape\TapeMergeEngine.h">
+      <Filter>tape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\tape\TapeSortingEngine.h">
+      <Filter>tape</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

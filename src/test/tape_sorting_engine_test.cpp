@@ -12,10 +12,10 @@
 #define TAPE_LENGTH 20
 #define TAPE_SETTING_ID "tape_0"
 
-TEST(TapeFunctionalTests, WriteTapeAndReadWithAnother)
+TEST(TapeFunctionalTests, TapeSortingEngineTest)
 {
 	std::vector<int> output_tape_elements;
-	auto output_tape = TapeEmulatorFabric<int>::CreateEmulator("WriteTapeAndReadWithAnother.bin");
+	auto output_tape = TapeEmulatorFabric<int>::CreateEmulator("TapeSortingEngineTest.bin");
 	output_tape->open_tape();
 	for (int i = 0; i < TAPE_LENGTH; i++) {
 		if (output_tape->good()) {
@@ -32,7 +32,7 @@ TEST(TapeFunctionalTests, WriteTapeAndReadWithAnother)
 	auto load_result = tape_settings_loader->load_setting(TAPE_SETTING_ID, input_tape_settings_ptr);
 	EXPECT_EQ(load_result, TapeSettingsLoader::load_result::load_success);
 
-	auto input_tape = TapeEmulatorFabric<int>::CreateEmulator("WriteTapeAndReadWithAnother.bin", input_tape_settings_ptr);
+	auto input_tape = TapeEmulatorFabric<int>::CreateEmulator("TapeSortingEngineTest.bin", input_tape_settings_ptr);
 	input_tape->open_tape();
 
 	std::vector<int> input_tape_elements;
@@ -51,5 +51,5 @@ TEST(TapeFunctionalTests, WriteTapeAndReadWithAnother)
 		EXPECT_EQ(input_tape_elements[i], output_tape_elements[i]);
 	}	
 
-	std::filesystem::remove("WriteTapeAndReadWithAnother.bin");
+	std::filesystem::remove("TapeSortingEngineTest.bin");
 }

@@ -37,7 +37,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;YAML_CPP_STATIC_DEFINE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(DataBlockSorter);$(ThreadPoolDir);$(TapeSettingsLoaderDir);$(ITapeIncludeDir);$(YamlCppIncludeDir);$(CmdlineParserDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(DataBlockSorterDir);$(ThreadPoolDir);$(TapeSettingsLoaderDir);$(ITapeIncludeDir);$(YamlCppIncludeDir);$(CmdlineParserDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>

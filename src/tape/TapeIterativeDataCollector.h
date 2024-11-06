@@ -46,6 +46,7 @@ inline TapeIterativeDataCollector<T, IterableContainer>::IterableContainerPtr Ta
 	}
 
 	IterableContainerPtr container_ptr = std::make_shared<IterableContainer>();
+	container_ptr->reserve(this->data_block_size);
 
 	if (this->status != collector_status::done) {
 		for (int i = 0; i < this->data_block_size; i++) {

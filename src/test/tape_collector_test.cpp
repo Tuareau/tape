@@ -1,5 +1,7 @@
 #include "gtest/gtest.h"
 
+#include <filesystem>
+
 #include "TapeEmulatorFabric.h"
 #include "TapeIterativeDataCollector.h"
 
@@ -38,7 +40,11 @@ TEST(TapeCollectorTests, TapeBlockCollectTest)
 
 	auto data_block_ptr = collector.collect_next_data();
 
+	test_tape->close_tape();
+
 	EXPECT_EQ(*data_block_ptr, reference_data_block);
+
+	std::filesystem::remove("TapeBlockCollectTest.bin");
 }
 
 TEST(TapeCollectorTests, TapeCollectedSizeTest)
@@ -74,6 +80,9 @@ TEST(TapeCollectorTests, TapeCollectedSizeTest)
 		data_blocks_total_size += data_block_ptr->size();
 		data_block_ptr = collector.collect_next_data();
 	}
+	test_tape->close_tape();
 
 	EXPECT_EQ(data_blocks_total_size, reference_data_block.size());
+
+	std::filesystem::remove("TapeCollectedSizeTest.bin");
 }

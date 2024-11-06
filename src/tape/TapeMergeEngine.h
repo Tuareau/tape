@@ -1,39 +1,58 @@
 #pragma once
 
 #include <vector>
+#include <array>
 #include <memory>
 #include <thread>
 
-#include "thread_pool.h"
-#include "../../src/tape/ITapeEmulator.h"
+#include "threadsafe_queue.h"
+#include "ITapeEmulator.h"
 #include "DataBlockSorter.h"
-#include "../../src/tape/TapeEmulatorFabric.h"
+#include "TapeEmulatorFabric.h"
 
-template <typename T>
+template <typename T, typename Container>
 class TapeMergeEngine
 {
 private:
 	using TapePtr = std::shared_ptr<ITapeEmulator<T>>;
-	constexpr size_t temp_tapes_count 8;
-	std::vector<TapePtr> tapes;
-	TapePtr input_tape_ptr;
 	TapePtr output_tape_ptr;
 
-	using IterableDataBlock = std::vector<T>;
-	thread_pool<DataBlockSorter, IterableDataBlock> thread_pool;
+	struct TempTapesController {
+		constexpr size_t temp_tapes_count = 8;
+		std::array<size_t, temp_tapes_count> temp_tapes_sizes;
+	};
 
+	TempTapesController tapes_controller;
+
+	threadsafe_queue<Container> data_queue;
+
+	size_t merged_blocks_count;
+
+	void merge_temp_tapes();
 
 public:
-	TapeMergeEngine();
+	TapeMergeEngine(TapePtr output_tape_ptr);
 
-	void run();
+	void push_block(Container container);
+	size_t merged_blocks() const;
+	void complete_merge();
 
 };
 
-template<typename T>
-inline TapeMergeEngine<T>::TapeMergeEngine(TapePtr input_tape_ptr, TapePtr output_tape_ptr)
+template <typename T, typename Container>
+inline TapeMergeEngine<typename T, typename Container>::TapeMergeEngine(TapePtr output_tape_ptr)
 {
-	this->input_tape_ptr = input_tape_ptr;
 	this->output_tape_ptr = output_tape_ptr;
-	this->thread_pool = thread_pool<DataBlockSorter, IterableDataBlock>(std::thread::hardware_concurrency());
+}
+
+template<typename T, typename Container>
+inline void TapeMergeEngine<T, Container>::push_block(Container container)
+{
+	this->data_queue->push(container);
+}
+
+template<typename T, typename Container>
+inline size_t TapeMergeEngine<T, Container>::merged_blocks() const
+{
+	return this->merged_blocks_count;
 }
