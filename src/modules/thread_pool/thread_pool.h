@@ -19,7 +19,7 @@ public:
 	bool processed_data_ready() const;
 
 	void insert_task_data(Data & data);
-	void get_processed_data(Data & data);
+	void get_sorted_data(Data & data);
 
 private:
 	std::atomic<bool> join_enable;
@@ -65,7 +65,7 @@ inline void thread_pool<Callable, Data>::insert_task_data(Data & data)
 }
 
 template<class Callable, class Data>
-inline void thread_pool<Callable, Data>::get_processed_data(Data & data)
+inline void thread_pool<Callable, Data>::get_sorted_data(Data & data)
 {
 	this->processed_data_queue.try_pop(data);
 }

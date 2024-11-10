@@ -10,6 +10,7 @@
 #include "DataBlockSorter.h"
 #include "TapeEmulatorFabric.h"
 #include "TapeIterativeDataCollector.h"
+#include "TapeMergeEngine.h"
 
 #define LENGTH 10000000
 #define BLOCK 1000000
@@ -30,14 +31,6 @@ private:
 	constexpr size_t data_block_size = 131072000;
 	thread_pool<DataBlockSorter, DataBlock> sorters_pool;
 
-	struct DataBlocksCounter {
-		std::mutex mutex;
-		size_t counter;
-		size_t threshold;
-	};
-
-	DataBlocksCounter data_blocks_counter;
-
     TapeIterativeDataCollector<T, DataBlock> collector;
 
 public:
@@ -53,8 +46,6 @@ inline TapeSortingEngine<T>::TapeSortingEngine(TapePtr input_tape_ptr, TapePtr o
 	this->input_tape_ptr = input_tape_ptr;
 	this->output_tape_ptr = output_tape_ptr;
 	this->sorters_pool = thread_pool<DataBlockSorter<DataBlock>, DataBlock>(this->threads_count);
-	this->data_blocks_counter.counter = 0;
-	this->data_blocks_counter.threshold = this->data_block_size / this->threads_count;
     this->collector = TapeIterativeDataCollector<T, DataBlock>(input_tape_ptr, this->data_block_size);
 }
 
@@ -62,20 +53,28 @@ template<typename T>
 inline void TapeSortingEngine<T>::run()
 {
     constexpr int blocks_total = LENGTH / BLOCK;
-    int blocks_sorted = 0;
+    int blocks_processed = 0;
+	int blocks_completed = 0;
+
+	auto merge_engine = std::make_shared<TapeMergeEngine<T, std::vector<T>>>(this->output_tape_ptr);
 
     auto start = std::chrono::high_resolution_clock::now();
 
-    while (blocks_sorted != blocks_total) {
-        auto next_data_block = this->collector->collect_next_data();
-        if (!next_data_block.empty()) {
-            this->sorters_pool.insert_task_data(next_data_block);
+    while (blocks_completed != blocks_total) {
+        if (blocks_processed <= this->threads_count) {
+            auto next_data_block = this->collector->collect_next_data();
+            if (!next_data_block.empty()) {
+                this->sorters_pool.insert_task_data(next_data_block);
+                blocks_processed++;
+            }
         }
         DataBlock sorted_block;
-        pool.get_processed_data(sorted_block);
+        this->sorters_pool.get_sorted_data(sorted_block);
         if (!sorted_block.empty()) {
-            blocks_sorted++;
-            // TODO: MergeEngine get block
+			merge_engine.merge_block(sorted_block);
+            auto blocks_completed_updated = merge_engine.merged_blocks();
+            blocks_processed -= blocks_completed_updated - blocks_completed;
+            blocks_completed = blocks_completed_updated;
         }
     }
 
