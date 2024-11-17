@@ -6,6 +6,7 @@
 #include <string>
 #include <memory>
 #include <chrono>
+#include <filesystem>
 
 struct TapeSettings
 {
@@ -13,14 +14,6 @@ struct TapeSettings
 	std::chrono::milliseconds tape_write_delay;
 	std::chrono::milliseconds tape_read_delay;
 	std::chrono::milliseconds tape_shift_delay;
-	friend std::ostream & operator<<(std::ostream & stream, const TapeSettings & settings)
-	{
-		std::cout << "\nTape Setting " << settings.setting_id;
-		std::cout << "\n  tape_write_delay = " << settings.tape_write_delay;
-		std::cout << "\n  tape_read_delay = " << settings.tape_read_delay;
-		std::cout << "\n  tape_shift_delay = " << settings.tape_shift_delay << std::endl;
-		return stream;
-	}
 };
 
 using TapeSettingsPointer = std::shared_ptr<TapeSettings>;
@@ -31,7 +24,7 @@ class TapeFstreamEmulator : public ITapeEmulator<T>
 private:
 	TapeSettingsPointer settings;
 
-	std::string filename;
+	std::filesystem::path filepath;
 	std::fstream fstream;
 
 	std::fstream::pos_type read_position;
@@ -48,24 +41,28 @@ public:
 	TapeFstreamEmulator(TapeFstreamEmulator &&) = default;
 	TapeFstreamEmulator & operator=(const TapeFstreamEmulator &) = default;
 
-	explicit TapeFstreamEmulator(const std::string & filename);
+	explicit TapeFstreamEmulator(const std::filesystem::path & filepath);
 	explicit TapeFstreamEmulator(const TapeSettingsPointer & settings);
-	TapeFstreamEmulator(const std::string & filename, const TapeSettingsPointer & settings);
+	TapeFstreamEmulator(const std::filesystem::path & filepath, const TapeSettingsPointer & settings);
 
 	bool good() override;
 
-	ITapeEmulator<T>::TapeState open_tape() override;
-	ITapeEmulator<T>::TapeState reset_tape() override;
+	ITapeEmulator<T>::TapeState open_tape(std::ios_base::openmode mode = std::ios_base::out | std::ios_base::in) override;
+	ITapeEmulator<T>::TapeState reset_tape(std::ios_base::openmode mode = std::ios_base::out | std::ios_base::in) override;
 	ITapeEmulator<T>::TapeState close_tape() override;
 
 	ITapeEmulator<T>::TapeState read_element(T &) override;
 	ITapeEmulator<T>::TapeState write_element(const T &) override;
 	ITapeEmulator<T>::TapeState shift_forward() override;
 	ITapeEmulator<T>::TapeState shift_backward() override;
+
+	ITapeEmulator<T>::TapeState copy_tape(ITapeEmulator<T> & swap_tape) override;
+
+	std::string tape_path() override;
 };
 
 template<typename T>
-TapeFstreamEmulator<T>::TapeFstreamEmulator(const std::string & filename)
+TapeFstreamEmulator<T>::TapeFstreamEmulator(const std::filesystem::path & filepath)
 {
 	using namespace std::chrono_literals;
 	auto default_settings = std::make_shared<TapeSettings>();
@@ -75,7 +72,7 @@ TapeFstreamEmulator<T>::TapeFstreamEmulator(const std::string & filename)
 	default_settings->tape_shift_delay = 0ms;
 
 	this->settings = default_settings;
-	this->filename = filename;
+	this->filepath = filepath;
 	this->state = ITapeEmulator<T>::TapeState::Unitialized;
 }
 
@@ -83,14 +80,14 @@ template<typename T>
 TapeFstreamEmulator<T>::TapeFstreamEmulator(const TapeSettingsPointer & settings)
 {
 	this->settings = settings;
-	this->filename = std::string{ "default.bin" };
+	this->filepath = std::filesystem::path(std::string{ "./default.bin" });
 	this->state = ITapeEmulator<T>::TapeState::Unitialized;
 }
 
 template<typename T>
-TapeFstreamEmulator<T>::TapeFstreamEmulator(const std::string & filename, const TapeSettingsPointer & settings)
+TapeFstreamEmulator<T>::TapeFstreamEmulator(const std::filesystem::path & filepath, const TapeSettingsPointer & settings)
 {
-	this->filename = filename;
+	this->filepath = filepath;
 	this->settings = settings;
 	this->state = ITapeEmulator<T>::TapeState::Unitialized;
 }
@@ -124,14 +121,14 @@ bool TapeFstreamEmulator<T>::good()
 }
 
 template<typename T>
-ITapeEmulator<T>::TapeState TapeFstreamEmulator<T>::open_tape()
+ITapeEmulator<T>::TapeState TapeFstreamEmulator<T>::open_tape(std::ios_base::openmode mode)
 {
-	auto open_mode = std::ios_base::binary | std::ios_base::in | std::ios_base::out;
-	this->fstream.open(this->filename, open_mode);
+	auto open_mode = std::ios_base::binary | mode;
+	this->fstream.open(this->filepath, open_mode);
 	this->update_state();
 	if (this->state == ITapeEmulator<T>::TapeState::Unitialized) {
 		open_mode = std::ios_base::binary | std::ios_base::out;
-		this->fstream.open(this->filename, open_mode);
+		this->fstream.open(this->filepath, open_mode);
 		this->update_state();
 	}
 	this->write_position = this->fstream.tellp();
@@ -140,10 +137,10 @@ ITapeEmulator<T>::TapeState TapeFstreamEmulator<T>::open_tape()
 }
 
 template<typename T>
-ITapeEmulator<T>::TapeState TapeFstreamEmulator<T>::reset_tape()
+ITapeEmulator<T>::TapeState TapeFstreamEmulator<T>::reset_tape(std::ios_base::openmode mode)
 {
 	this->close_tape();
-	const auto state = this->open_tape();
+	const auto state = this->open_tape(mode);
 	return state;
 }
 
@@ -219,4 +216,23 @@ ITapeEmulator<T>::TapeState TapeFstreamEmulator<T>::shift_backward()
 	this->read_position -= sizeof(T);
 	this->write_position -= sizeof(T);
 	return this->state;
+}
+
+template<typename T>
+inline ITapeEmulator<T>::TapeState TapeFstreamEmulator<T>::copy_tape(ITapeEmulator<T> & swap_tape)
+{
+	swap_tape.close_tape();
+	this->filepath = swap_tape.filepath;
+	this->read_position = swap_tape.read_position;
+	this->write_position = swap_tape.write_position;
+	this->settings = swap_tape.settings;
+	this->state = swap_tape.state;
+	this->reset_tape();
+	return this->state;
+}
+
+template<typename T>
+inline std::string TapeFstreamEmulator<T>::tape_path()
+{
+	return this->filepath;
 }

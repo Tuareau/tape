@@ -142,14 +142,17 @@
     <ClInclude Include="..\..\src\tape\TapeIterativeDataCollector.h">
       <Filter>tape</Filter>
     </ClInclude>
-    <ClInclude Include="$(ThreadPoolDir)\thread_pool.h">
-      <Filter>modules\thread_pool</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\tape\TapeMergeEngine.h">
       <Filter>tape</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\tape\TapeSortingEngine.h">
       <Filter>tape</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ThreadPoolDir)\merge_thread_pool.h">
+      <Filter>modules\thread_pool</Filter>
+    </ClInclude>
+    <ClInclude Include="$(ThreadPoolDir)\sort_thread_pool.h">
+      <Filter>modules\thread_pool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

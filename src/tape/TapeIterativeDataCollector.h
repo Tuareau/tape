@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include "../../src/tape/ITapeEmulator.h"
+#include "ITapeEmulator.h"
 
 template <typename T, class IterableContainer>
 class TapeIterativeDataCollector

@@ -10,16 +10,15 @@ class TapeEmulatorFabric
 public:
 	TapeEmulatorFabric() = delete;
 
-	static std::shared_ptr<ITapeEmulator<T>> CreateEmulator(std::string filename);
+	static std::shared_ptr<ITapeEmulator<T>> CreateEmulator(std::filesystem::path filepath);
 	static std::shared_ptr<ITapeEmulator<T>> CreateEmulator(TapeSettingsPointer settings);
-	static std::shared_ptr<ITapeEmulator<T>> CreateEmulator(std::string filename, TapeSettingsPointer settings);
-
+	static std::shared_ptr<ITapeEmulator<T>> CreateEmulator(std::filesystem::path filepath, TapeSettingsPointer settings);
 };
 
 template<typename T>
-inline std::shared_ptr<ITapeEmulator<T>> TapeEmulatorFabric<T>::CreateEmulator(std::string filename)
+inline std::shared_ptr<ITapeEmulator<T>> TapeEmulatorFabric<T>::CreateEmulator(std::filesystem::path filepath)
 {
-	std::shared_ptr<ITapeEmulator<T>> emulator_ptr = std::make_shared<TapeFstreamEmulator<T>>(filename);
+	std::shared_ptr<ITapeEmulator<T>> emulator_ptr = std::make_shared<TapeFstreamEmulator<T>>(filepath);
 	return emulator_ptr;
 }
 
@@ -31,8 +30,8 @@ inline std::shared_ptr<ITapeEmulator<T>> TapeEmulatorFabric<T>::CreateEmulator(T
 }
 
 template<typename T>
-inline std::shared_ptr<ITapeEmulator<T>> TapeEmulatorFabric<T>::CreateEmulator(std::string filename, TapeSettingsPointer settings)
+inline std::shared_ptr<ITapeEmulator<T>> TapeEmulatorFabric<T>::CreateEmulator(std::filesystem::path filepath, TapeSettingsPointer settings)
 {
-	std::shared_ptr<ITapeEmulator<T>> emulator_ptr = std::make_shared<TapeFstreamEmulator<T>>(filename, settings);
+	std::shared_ptr<ITapeEmulator<T>> emulator_ptr = std::make_shared<TapeFstreamEmulator<T>>(filepath, settings);
 	return emulator_ptr;
 }

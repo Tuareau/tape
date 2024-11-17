@@ -4,12 +4,12 @@
 #include <array>
 #include <memory>
 #include <thread>
+#include <future>
 #include <queue>
 #include <filesystem>
 
 #include "threadsafe_queue.h"
 #include "ITapeEmulator.h"
-#include "DataBlockSorter.h"
 #include "TapeEmulatorFabric.h"
 
 template <typename T, typename Container>
@@ -17,67 +17,56 @@ class TapeMergeEngine
 {
 private:
 	using TapePtr = std::shared_ptr<ITapeEmulator<T>>;
-	TapePtr output_tape_ptr;
-
-	constexpr size_t temp_tapes_count = 8;
-	threadsafe_queue<ITapeEmulator<T>> temp_tapes_queue;
-
-	threadsafe_queue<Container> data_queue;
-
-	std::mutex merged_blocks_mutex;
-	size_t merged_blocks_count;
-
-	std::vector<std::future<void>> merge_futures;
-	void merge_block_async(Container data_block);
 
 public:
-	TapeMergeEngine(TapePtr output_tape_ptr);
+	TapeMergeEngine() = default;
 
-	void merge_block(Container container);
-	size_t merged_blocks() const;
-	TapePtr complete_merge();
+	TapePtr operator()(TapePtr & tape_ptr, Container & container);
 
 };
 
 template<typename T, typename Container>
-inline void TapeMergeEngine<T, Container>::merge_block_async(Container data_block)
+inline TapeMergeEngine<T, Container>::TapePtr TapeMergeEngine<T, Container>::operator()(TapePtr & tape_ptr, Container & container)
 {
-	auto temp_source_tape = this->temp_tapes_queue.wait_and_pop();
-	auto container = this->data_queue.wait_and_pop();
+	tape_ptr->reset_tape(std::ios_base::in);
 
-	// TODO: async merging
-	
-	auto temp_tapes_queue.front();
-}
+	const auto thread_id = std::hash<std::thread::id>{}(std::this_thread::get_id());
+	const auto tmp_dir = std::filesystem::temp_directory_path();
+	const auto file_path = tmp_dir / std::filesystem::path("temp_tape_") / std::filesystem::path(std::to_string(thread_id));
+	auto temp_tape = TapeEmulatorFabric<T>::CreateEmulator(file_path);
+	temp_tape->reset_tape(std::ios_base::out);
 
-template <typename T, typename Container>
-inline TapeMergeEngine<typename T, typename Container>::TapeMergeEngine(TapePtr output_tape_ptr)
-{
-	this->output_tape_ptr = output_tape_ptr;
-	for (int i = 0; i, this->temp_tapes_count; i++) {
-		auto tmp_dir = std::filesystem::temp_directory_path();
-		auto file_path = tmp_dir / std::filesystem::path("temp_tape_") / std::filesystem::path(std::to_string(i));
-		auto temp_tape = TapeEmulatorFabric<T>::CreateEmulator(file_path.string());
-		this->temp_tapes_queue.push(temp_tape);
+	for (const auto & container_element : container) {
+
+		auto element_stored_flag = false;
+
+		while (tape_ptr->good()) {
+			T tape_element;
+			auto state = tape_ptr->read_element(tape_element);
+			if (tape_ptr->good()) {
+				if (tape_element <= container_element) {
+					temp_tape->write_element(tape_element);
+					temp_tape->shift_forward();
+					continue;
+				}
+				else {
+					temp_tape->write_element(container_element);
+					temp_tape->shift_forward();
+					element_stored_flag = true;
+					break;
+				}
+			}
+		}
+
+		if (!element_stored_flag) {
+			temp_tape->write_element(container_element);
+			temp_tape->shift_forward();
+		}
 	}
-}
 
-template<typename T, typename Container>
-inline void TapeMergeEngine<T, Container>::merge_block(Container container)
-{
-	this->data_queue->push(container);
-	auto merge_future = std::async(std::launch::async, TapeMergeEngine<T, Container>::merge_block_async(), this);
-	this->merge_futures.push_back(merge_future);
-}
-
-template<typename T, typename Container>
-inline size_t TapeMergeEngine<T, Container>::merged_blocks() const
-{
-	return this->merged_blocks_count;
-}
-
-template<typename T, typename Container>
-inline TapeMergeEngine<T, Container>::TapePtr TapeMergeEngine<T, Container>::complete_merge()
-{
-	return TapePtr();
+	const std::filesystem::path old_tape_path = tape_ptr->tape_path();
+	std::filesystem::remove(old_tape_path);
+	std::filesystem::rename(file_path, old_tape_path);
+	temp_tape->copy_tape(*tape_ptr);
+	return temp_tape;
 }
