@@ -12,6 +12,7 @@
     <ClCompile Include="$(ThreadPoolDir)\threadsafe_queue.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(ThreadPoolDir)\thread_pool.h" />
+    <ClInclude Include="$(ThreadPoolDir)\sort_thread_pool.h" />
+    <ClInclude Include="$(ThreadPoolDir)\merge_thread_pool.h" />
   </ItemGroup>
 </Project>
